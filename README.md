@@ -1,2 +1,2 @@
 # Patho-GAN
-Code for paper work
+Code for the paper will released soon.
