@@ -1,0 +1,9 @@
+
+/DMB/
+/Model_and_Result/
+/Visualization/
+/Test/
+
+*.h5
+*.npy
+*.mat

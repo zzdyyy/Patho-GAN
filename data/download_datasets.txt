@@ -1,0 +1,3 @@
+IDRiD: https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid
+retinal-lesions: https://github.com/WeiQijie/retinal-lesions
+FGADR: https://csyizhou.github.io/FGADR/

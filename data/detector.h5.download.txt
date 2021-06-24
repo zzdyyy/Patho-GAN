@@ -1,0 +1,3 @@
+Download detector.h5 from https://drive.google.com/open?id=1OI1d3XWM7IyW2igIEq8s-ZyF9vw0vTiw
+$ md5sum detector.h5
+09963e46e5ae7ea537fbb070f4251668  detector.h5

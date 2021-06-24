@@ -1,0 +1,3 @@
+$ wget http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat
+$ md5sum imagenet-vgg-verydeep-19.mat
+8ee3263992981a1d26e73b3ca028a123  imagenet-vgg-verydeep-19.mat
