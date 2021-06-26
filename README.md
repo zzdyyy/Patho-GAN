@@ -5,7 +5,23 @@ Patho-GAN can generate diabetic retinopathy(DR) fundus given Pathological descri
 
 
 # Testing
-To run the test code, please check xxx.
+
+```bash
+pip install -r requirements.txt 
+
+# Download pretrained VGG-19 model
+wget -O data/imagenet-vgg-verydeep-19.mat 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'
+
+# Download pretrained o_O detector model
+gdown -O data/detector.h5 'https://drive.google.com/uc?id=1OI1d3XWM7IyW2igIEq8s-ZyF9vw0vTiw'
+
+# Download IDRiD vessel segmentation, descriptors, and pretrained Patho-GAN model
+gdown -O idrid_testing.tar.xz 'https://drive.google.com/uc?id=1Cf1WoaoGf6m7t6z70kpEl1SXOxTeM6Qu'
+tar -xvf idrid_testing.tar.xz
+
+# Run test script, and generated `Test/IDRiD_Reconstruct` directory
+python Test_reconstruct_DMB.py IDRiD
+```
 
 # Training
 
@@ -21,26 +37,14 @@ We take IDRiD dataset for example.
     ```
     python Test_PathoGAN.py IDRiD
     ```
-4. Compute Activation Map A0(x): download data/detector.h5, and run in Patho-GAN's root directory:
-    ```
-    python tfpipe_dump_activation.py "data/IDRiD/train_512/*.jpg" --dump_to IDRiD_train_dump --visualize # 54 images
-    python tfpipe_dump_activation.py "data/IDRiD/test_512/*.jpg" --dump_to IDRiD_test_dump --visualize # 27 images
-    ```
-    for other datasets, run like this:
-    ```
-    python tfpipe_dump_activation.py "data/retinal-lesions/resized_512/3*.jpg" --dump_to retinal-lesions_train_dump --visualize # 337 images
-    python tfpipe_dump_activation.py "data/retinal-lesions/resized_512/[124-9]*.jpg" --dump_to retinal-lesions_test_dump --visualize # 1256 images
-    
-    python tfpipe_dump_activation.py "data/FGADR/resized_512/*.jpg" --dump_to FGADR_dump --visualize # 1842 images
-    ```
-5. Generate the numpy of the dataset. Run `python to_npy.py` in `data/IDRiD/`.
-6. Generate descriptors for test samples. Download data/imagenet-vgg-verydeep-19.mat, run in Patho-GAN's root directory:
+4. Generate the numpy of the dataset. Run `python to_npy.py` in `data/IDRiD/`.
+5. Generate descriptors for test samples. Download data/imagenet-vgg-verydeep-19.mat, run in Patho-GAN's root directory:
     ```
     python DMB_build_test_samples.py IDRiD IDRiD_55.jpg IDRiD_61.jpg IDRiD_73.jpg IDRiD_81.jpg
     python DMB_build_test_samples.py retinal-lesions 250_right.jpg 2016_right.jpg 2044_left.jpg 2767_left.jpg
     python DMB_build_test_samples.py FGADR 0508.jpg 0549.jpg 0515.jpg 0529.jpg
     ```
-7. Start training:
+6. Start training:
     ```
     python Train.py IDRiD IDRiD_55.jpg IDRiD_61.jpg IDRiD_73.jpg IDRiD_81.jpg
     python Train.py retinal-lesions 250_right.jpg 2016_right.jpg 2044_left.jpg 2767_left.jpg

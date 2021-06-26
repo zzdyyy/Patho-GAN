@@ -25,10 +25,10 @@ for mode in ['train', 'test']:
     gt1 = np.stack(list(map(lambda x: cv2.imread(x.replace('.jpg', '_VS.png'), cv2.IMREAD_GRAYSCALE), filelist)))
     gt1 = gt1/255.
     gt1 = gt1.astype('float32')
-    gt2 = np.load('../../Visualization/'+dataset_name+'_'+mode+'_dump.npy')
-    gt = np.concatenate([gt1[..., None], gt2], 3)
-    print('gt1', gt1.shape, gt1.dtype, 'gt2', gt2.shape, gt2.dtype, 'gt', gt.shape, gt.dtype)
-    np.save('../'+dataset_name+'_'+mode+'_gt.npy', gt)
+    # gt2 = np.load('../../Visualization/'+dataset_name+'_'+mode+'_dump.npy')
+    # gt = np.concatenate([gt1[..., None], gt2], 3)
+    # print('gt1', gt1.shape, gt1.dtype, 'gt2', gt2.shape, gt2.dtype, 'gt', gt.shape, gt.dtype)
+    np.save('../'+dataset_name+'_'+mode+'_gt.npy', gt1[..., None])
 
     # dump file_name list
     with open('../'+dataset_name+'_'+mode+'.list', 'w') as f:

@@ -1,4 +1,5 @@
-tensorflow==1
+tensorflow==1.8
 Keras==2.2
 scikit-image
 opencv-python
+gdown
