@@ -1,7 +1,20 @@
 # Patho-GAN
-This is project for the paper "Explainable Diabetic Retinopathy Detection and Retinal Image Generation".
 
-Patho-GAN can generate diabetic retinopathy(DR) fundus given Pathological descriptors, vessel segmentation and a noise vector. 
+With a diabetic retinopathy (DR) fundus as input, Pathological Descriptors can be extracted with [pretrained DR detectors](https://github.com/zzdyyy/kaggle_diabetic_keras). Patho-GAN can then generate diabetic retinopathy (DR) fundus given Pathological descriptors and vessel segmentation. 
+
+![teaser](github/teaser.png)
+
+This is the project for paper "Explainable Diabetic Retinopathy Detection and Retinal Image Generation". Please consider citing us.
+
+```
+@article{niu2021explainable,
+  author={Niu, Yuhao and Gu, Lin and Zhao, Yitian and Lu, Feng},
+  journal={IEEE Journal of Biomedical and Health Informatics}, 
+  title={Explainable Diabetic Retinopathy Detection and Retinal Image Generation}, 
+  year={2021},
+  doi={10.1109/JBHI.2021.3110593}
+}
+```
 
 
 # Testing
