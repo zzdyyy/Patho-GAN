@@ -1,10 +1,22 @@
-# Patho-GAN
+# Patho-GAN: Interpretation + Medical Data Augmentation
 
 With a diabetic retinopathy (DR) fundus as input, Pathological Descriptors can be extracted with [pretrained DR detectors](https://github.com/zzdyyy/kaggle_diabetic_keras). Patho-GAN can then generate diabetic retinopathy (DR) fundus given Pathological descriptors and vessel segmentation. 
 
 ![teaser](github/teaser.png)
 
-This is the project for paper "Explainable Diabetic Retinopathy Detection and Retinal Image Generation". Please consider citing us.
+**Interpretation**: We can determine the symptoms that the DR detector identifies as evidence to make prediction. This explainable work helps medical community to further understand on how deep learning makes prediction and encourage more collaboration. 
+
+![detection](github/detection.png)
+
+**Augmentation**: We can generate high quality medical images with various lesions, suitable for medical data augmentation (not only DR retinal fundus). The synthesized lesions is controllable by location and quantity.
+
+![real_and_synthesized](github/real_and_synthesized.png)
+
+![lesion_manipulation](github/lesion_manipulation.png)
+
+# Paper
+
+This repo is the project for IEEE JBHI paper "[Explainable Diabetic Retinopathy Detection and Retinal Image Generation](https://doi.org/10.1109/JBHI.2021.3110593)" ([arxiv](https://arxiv.org/abs/2107.00296)),  based on a previous AAAI'19 work "[Pathological Evidence Exploration in Deep Retinal Image Diagnosis](https://ojs.aaai.org//index.php/AAAI/article/view/3901)" ([arxiv](https://arxiv.org/abs/1812.02640)). Please consider citing us. 
 
 ```
 @article{niu2021explainable,
@@ -16,8 +28,9 @@ This is the project for paper "Explainable Diabetic Retinopathy Detection and Re
 }
 ```
 
-
 # Testing
+
+You can synthesize DR images with pre-trained model:
 
 ```bash
 pip install -r requirements.txt 
