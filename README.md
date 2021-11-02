@@ -1,6 +1,16 @@
 # Patho-GAN: Interpretation + Medical Data Augmentation
 
-With a diabetic retinopathy (DR) fundus as input, Pathological Descriptors can be extracted with [pretrained DR detectors](https://github.com/zzdyyy/kaggle_diabetic_keras). Patho-GAN can then generate diabetic retinopathy (DR) fundus given Pathological descriptors and vessel segmentation. 
+This repo is the project for IEEE JBHI paper "[Explainable Diabetic Retinopathy Detection and Retinal Image Generation](https://doi.org/10.1109/JBHI.2021.3110593)" ([arxiv](https://arxiv.org/abs/2107.00296)),  based on a previous AAAI'19 work "[Pathological Evidence Exploration in Deep Retinal Image Diagnosis](https://ojs.aaai.org//index.php/AAAI/article/view/3901)" ([arxiv](https://arxiv.org/abs/1812.02640)). Inspired by Koch's Postulates, the foundation in evidence-based medicine (EBM) to identify the pathogen, we propose to exploit the interpretability of deep learning application in medical diagnosis.
+
+This is a comprehensive medical image framework featuring:
+
+- Unsupervised lesion detection & rough segmentation
+- Detecting lesions related to disease diagnosis such as microaneurysms, hemorrhages, soft and hard exudates
+- Fundus image synthesis with full controllability of lesion location and number
+- Data augmentation, fast and photo-realistic
+- CNN Interpretability framework
+
+With a diabetic retinopathy (DR) fundus as input, Pathological Descriptors can be extracted from [pretrained DR detectors](https://github.com/zzdyyy/kaggle_diabetic_keras). Patho-GAN can then generate diabetic retinopathy (DR) fundus given Pathological descriptors and vessel segmentation. 
 
 ![teaser](github/teaser.png)
 
@@ -16,7 +26,11 @@ With a diabetic retinopathy (DR) fundus as input, Pathological Descriptors can b
 
 # Paper
 
-This repo is the project for IEEE JBHI paper "[Explainable Diabetic Retinopathy Detection and Retinal Image Generation](https://doi.org/10.1109/JBHI.2021.3110593)" ([arxiv](https://arxiv.org/abs/2107.00296)),  based on a previous AAAI'19 work "[Pathological Evidence Exploration in Deep Retinal Image Diagnosis](https://ojs.aaai.org//index.php/AAAI/article/view/3901)" ([arxiv](https://arxiv.org/abs/1812.02640)). Please consider citing us. 
+IEEE JBHI paper "[Explainable Diabetic Retinopathy Detection and Retinal Image Generation](https://doi.org/10.1109/JBHI.2021.3110593)" ([arxiv](https://arxiv.org/abs/2107.00296))
+
+AAAI'19 work "[Pathological Evidence Exploration in Deep Retinal Image Diagnosis](https://ojs.aaai.org//index.php/AAAI/article/view/3901)" ([arxiv](https://arxiv.org/abs/1812.02640))
+
+Please consider citing us. 
 
 ```
 @article{niu2021explainable,
