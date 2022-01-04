@@ -42,13 +42,23 @@ Please consider citing us.
 }
 ```
 
-# Testing
+# Requirements
 
-You can synthesize DR images with pre-trained model:
+The code is tested under Ubuntu16.04+Python3.5+Tensorflow1.8+Keras2.2. You can install a python3.5 environment and run: 
 
 ```bash
+pip install --upgrade pip
 pip install -r requirements.txt 
+```
 
+Alternatively, you can find a docker image at https://hub.docker.com/r/zzdyyy/patho-gan on Linux machine with GPU(s).
+
+
+# Testing
+
+To synthesize DR images with pre-trained model:
+
+```bash
 # Download pretrained VGG-19 model
 wget -O data/imagenet-vgg-verydeep-19.mat 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'
 
@@ -61,6 +71,13 @@ tar -xvf idrid_testing.tar.xz
 
 # Run test script, and generated `Test/IDRiD_Reconstruct` directory
 python Test_reconstruct_DMB.py IDRiD
+```
+
+To generate activation maps:
+
+```bash
+# this will output the activation maps in Visualization/IDRiD_test/
+python tfpipe_dump_activation.py data/IDRiD/test_512/*.jpg --dump_to IDRiD_test --visualize
 ```
 
 # Training
