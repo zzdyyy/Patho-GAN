@@ -69,15 +69,21 @@ gdown -O data/detector.h5 'https://drive.google.com/uc?id=1OI1d3XWM7IyW2igIEq8s-
 gdown -O idrid_testing.tar.xz 'https://drive.google.com/uc?id=1Cf1WoaoGf6m7t6z70kpEl1SXOxTeM6Qu'
 tar -xvf idrid_testing.tar.xz
 
-# Run test script, and generated `Test/IDRiD_Reconstruct` directory
+# Synthesize the original image, output to `Test/IDRiD_Reconstruct/`
 python Test_reconstruct_DMB.py IDRiD
+
+# Lesion Relocation: relocate the lesions in IDRiD_67, output to `Test/IDRiD_Randomize_IDRiD_67.jpg/`
+python Test_reconstruct_DMB_randomize.py --dataset_name IDRiD --img_name IDRiD_67.jpg
+
+# Number Manipulation: decrease or increase the lesions in IDRiD_67, output to `Test/IDRiD_NumberAdjust_IDRiD_67.jpg/`
+python Test_reconstruct_DMB_numberadjust.py --dataset_name IDRiD --img_name IDRiD_67.jpg
 ```
 
-To generate activation maps:
+To generate activation maps (suppose that IDRiD fundus are already in data/IDRiD/test_512/*.jpg):
 
 ```bash
 # this will output the activation maps in Visualization/IDRiD_test/
-python tfpipe_dump_activation.py data/IDRiD/test_512/*.jpg --dump_to IDRiD_test --visualize
+python tfpipe_dump_activation.py 'data/IDRiD/test_512/*.jpg' --dump_to IDRiD_test --visualize
 ```
 
 # Training

@@ -4,7 +4,36 @@ import numpy as np
 from scipy import ndimage
 from random import randint
 from StyleFeature import STYLE_LAYERS, STYLE_LAYERS_SIZE, STYLE_LAYERS_CHANNELS
+import numpy as np
 
+palette = [
+    [182,182,254], [255,219,152], [168,255,153],
+
+    [ 31, 119, 180],
+    [255, 127,  14],
+    [ 44, 160,  44],
+    [214,  39,  40],
+    [148, 103, 189],
+    [140,  86,  75],
+    [227, 119, 194],
+    [127, 127, 127],
+    [188, 189,  34],
+    [ 23, 190, 207],
+
+    [161, 201, 244],
+    [255, 180, 130],
+    [141, 229, 161],
+    [255, 159, 155],
+    [208, 187, 255],
+    [222, 187, 155],
+    [250, 176, 228],
+    [207, 207, 207],
+    [255, 254, 163],
+    [185, 242, 240]
+]
+palette = np.array(palette, dtype='uint8')
+np.random.seed(299792458)
+palette = np.concatenate([palette, np.random.randint(256, size=[1000,3], dtype='uint8')])
 
 def extract_descriptors(intermed_amap: np.ndarray, featmap: np.ndarray, seg_label: np.ndarray, 
                         dataset_name: str, img_id: int, fname_debug='debug/test.png'):
@@ -121,17 +150,23 @@ def rebuild_AMaps_by_cat(fragments, fragments_DB_by_cat, height=512, width=512, 
 
 
 def rebuild_AMaps_by_img(imgid, fragments_DB_by_img, height=512, width=512, fname_debug='debug/test.png',
-                         randomize=False, quantity=None, multiple=None):
+                         randomize=False, quantity=None, multiple=None, lesion_map=None):
     """Reconstruct AMaps from descriptors that extracted from one reference image"""
     amap = {size: np.zeros([size, size, n_channel], dtype='float32')
             for size, n_channel in zip(STYLE_LAYERS_SIZE, STYLE_LAYERS_CHANNELS)}
     fragments = fragments_DB_by_img[imgid]
-    if quantity is not None:
+    if lesion_map is not None:  # set palette
+        my_palette = palette[:len(fragments)]
+        lesion_map = np.zeros([256, 256, 3], dtype='uint8')
+    if quantity is not None:  # manipulate lesion quantity (0.x times)
         import random
-        fragments = random.sample(fragments, int(quantity*len(fragments)))
-    if multiple is not None:
+        index = random.sample(range(len(fragments)), int(quantity*len(fragments)))
+        if lesion_map is not None:
+            my_palette = my_palette[index]
+        fragments = [fragments[i] for i in index]
+    if multiple is not None:  # manipulate lesion quantity (n times)
         fragments = fragments*multiple
-    for fragment in fragments:
+    for fid, fragment in enumerate(fragments):
         x_min, y_min, x_max, y_max, original_scale, \
         feat_fragment, _, _, predict_label = fragment
 
@@ -153,10 +188,17 @@ def rebuild_AMaps_by_img(imgid, fragments_DB_by_img, height=512, width=512, fnam
 
             amap[size] += feat_fragment_to_add
 
+            if lesion_map is not None and size == 256:
+                lesion_map = lesion_map | (
+                    my_palette[fid % len(my_palette)] &
+                    (255*np.any(feat_fragment_to_add != 0, axis=2, keepdims=True)).astype('uint8')
+                )
+
         ## DEBUG
         # def reg(x):
         #     return (x-x.min())/(x.max()-x.min())
         # cv2.imwrite(fname_debug.replace('.png', '_aSeg8.256.{}.png'.format(imgid)), reg(np.sum(amap[256], -1)) * 255)
         # cv2.imwrite(fname_debug.replace('.png', '_aSeg8.64.{}.png'.format(imgid)), reg(np.sum(amap[64], -1)) * 255)
-
+    if lesion_map is not None:
+        return amap, lesion_map
     return amap
