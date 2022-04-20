@@ -41,10 +41,10 @@ act_input = {
                                            StyleFeature.STYLE_LAYERS_STD)
 }
 
-img_sample = np.load('data/{}_test_image.npy'.format(dataset))
-mask_sample = np.load('data/{}_test_mask.npy'.format(dataset))
-activation_maps = np.load('data/{}_test_gt.npy'.format(dataset))[..., 1:]  # AMaps
-segmentation_labels = np.load('data/{}_test_mask.npy'.format(dataset))[..., 1:]  # Labels
+img_sample = np.load('data/{}_test_image.npy'.format(dataset))  # [n, h, w, 3] original fundus
+mask_sample = np.load('data/{}_test_mask.npy'.format(dataset))  # [n, h, w]    FOV mask
+activation_maps = np.load('Visualization/{}_test.npy'.format(dataset))  # [n, h, w, 3] AMaps generated with tfpipe_dump_activation.py
+segmentation_labels = np.load('data/{}_test_mask.npy'.format(dataset))[..., 1:]  # Deprecated
 
 img_sample = (np.reshape(img_sample, [-1, img_x, img_y, img_channel]) - 0.5) * 2.0
 mask_sample = (np.reshape(mask_sample, [-1, img_x, img_y, 1]) - 0.5) * 2.0

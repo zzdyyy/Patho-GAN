@@ -50,9 +50,9 @@ with open('data/'+dataset+'_test.list', 'r') as f:
     file_list = yaml.safe_load(f)
 select = [file_list.index(args.test1), file_list.index(args.test2), file_list.index(args.test3), file_list.index(args.test4), ]
 
-img_sample = np.load('data/{}_test_image.npy'.format(dataset))[select, ...]
-mask_sample = np.load('data/{}_test_mask.npy'.format(dataset))[select, ...]
-activation_maps = np.load('data/{}_test_gt.npy'.format(dataset))[select, ..., 1:]  # AMaps
+img_sample = np.load('data/{}_test_image.npy'.format(dataset))[select, ...]  # [4, h, w, 3] original fundus
+mask_sample = np.load('data/{}_test_mask.npy'.format(dataset))[select, ...]  # [4, h, w]    FOV mask
+activation_maps = np.load('Visualization/{}_test.npy'.format(dataset))[select, ...]  # [4, h, w, 3] AMaps generated with tfpipe_dump_activation.py
 segmentation_labels = np.load('data/{}_test_mask.npy'.format(dataset))[select, ..., 1:]  # Labels - fake, not used
 
 img_sample = (np.reshape(img_sample, [-1, img_x, img_y, img_channel]) - 0.5) * 2.0
